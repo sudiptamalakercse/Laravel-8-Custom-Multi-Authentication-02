@@ -13,7 +13,7 @@ use App\Http\Controllers\BloggerController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::middleware(['guest:admin'])->group(function () {
+Route::middleware(['guest:admin','guest:blogger'])->group(function () {
 
     
 Route::get('/', function () {
@@ -31,6 +31,17 @@ Route::get('/login-admin', [AdminController::class, 'login_admin_form'])
 Route::post('/login-admin', [AdminController::class, 'login_admin']);
 
 
+Route::get('/register-blogger', [BloggerController::class, 'create'])
+                ->name('register-blogger');
+
+Route::post('/register-blogger', [BloggerController::class, 'store']);
+
+Route::get('/login-blogger', [BloggerController::class, 'login_blogger_form'])
+                ->name('login-blogger');
+
+Route::post('/login-blogger', [BloggerController::class, 'login_blogger']);
+
+
 });
 
 
@@ -42,5 +53,19 @@ Route::get('/dashboard-admin', [AdminController::class, 'dashboard_admin'])
                 ->name('dashboard-admin');
 
 Route::view('/setting-admin','admin.admin_setting');
-            
+      
+
+ });
+
+
+
+Route::middleware(['auth:blogger'])->group(function () {
+
+
+Route::get('/dashboard-blogger', [BloggerController::class, 'dashboard_blogger'])
+                ->name('dashboard-blogger');
+
+Route::view('/setting-blogger','blogger.blogger_setting');
+
+
  });

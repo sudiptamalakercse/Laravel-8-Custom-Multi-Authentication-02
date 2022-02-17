@@ -67,7 +67,7 @@ class AdminController extends Controller
  
         return back()->withErrors([
             'email' => 'The Provided Credentials Do Not Match With Our Records.',
-        ]);
+        ])->withInput();
     }
 
      public function dashboard_admin()

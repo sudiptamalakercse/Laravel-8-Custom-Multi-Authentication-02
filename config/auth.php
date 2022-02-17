@@ -43,6 +43,10 @@ return [
         'admin' => [
             'driver' => 'session',
             'provider' => 'admins'
+        ],
+        'blogger' => [
+            'driver' => 'session',
+            'provider' => 'bloggers'
         ]
     ],
 
@@ -71,6 +75,10 @@ return [
        'admins' => [
             'driver' => 'eloquent',
             'model' => App\Models\Admin::class
+       ],
+       'bloggers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Blogger::class
         ]
         // 'users' => [
         //     'driver' => 'database',

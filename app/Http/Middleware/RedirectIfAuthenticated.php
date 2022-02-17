@@ -25,6 +25,9 @@ class RedirectIfAuthenticated
             if ($guard == "admin" && Auth::guard($guard)->check()) {
             return redirect()->route('dashboard-admin');
             }
+            elseif ($guard == "blogger" && Auth::guard($guard)->check()) {
+            return redirect()->route('dashboard-blogger');
+            }
             // if (Auth::guard($guard)->check()) {
             //     return redirect('/');
             // }
