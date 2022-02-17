@@ -56,8 +56,12 @@ class AdminController extends Controller
         }
 
         if (Auth::guard('admin')->attempt($credentials,$remember)) {
+
             $request->session()->regenerate();
-            return redirect()->intended('/dashboard-admin')
+
+            $url=route('dashboard-admin');
+
+            return redirect()->intended($url)
             ->with('message', 'You Are Logged In Successfully as Admin!!');
         }
  
