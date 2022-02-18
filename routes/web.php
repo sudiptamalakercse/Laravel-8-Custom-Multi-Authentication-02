@@ -53,7 +53,7 @@ Route::middleware(['auth:admin'])->group(function () {
 Route::get('/dashboard-admin', [AdminController::class, 'dashboard_admin'])
                 ->name('dashboard-admin');
 
-Route::view('/setting-admin','admin.admin_setting');
+Route::view('/setting-admin','admin.admin_setting')->name('setting-admin');
       
 
  });
@@ -66,7 +66,7 @@ Route::middleware(['auth:blogger'])->group(function () {
 Route::get('/dashboard-blogger', [BloggerController::class, 'dashboard_blogger'])
                 ->name('dashboard-blogger');
 
-Route::view('/setting-blogger','blogger.blogger_setting');
+Route::view('/setting-blogger','blogger.blogger_setting')->name('setting-blogger');
 
 
  });
