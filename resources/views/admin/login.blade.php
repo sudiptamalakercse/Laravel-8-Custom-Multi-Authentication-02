@@ -9,7 +9,7 @@
 <body>
 <div class="container mt-5">
   <div class="row">        
-    <div class="col">
+    <div class="col-md-4 offset-md-4">
          <h3 class="mb-3 text-center">Log In As Admin</h3>
 @if ($errors->any())
     <div class="alert alert-danger" class="mt-5">

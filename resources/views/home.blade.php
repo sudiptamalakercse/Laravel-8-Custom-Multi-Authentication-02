@@ -4,21 +4,14 @@
 <head>
   <meta charset="utf-8">
      <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Admin Dashboard</title>
+  <title>Home</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <body>
 <div class="container mt-5">
   <div class="row">        
     <div class="col">
-         
-      @if (Session::has('message'))
-   <div class="alert alert-info" class="mb-3">{{ Session::get('message') }}</div>
-     @endif
-     @if (Auth::guard('admin')->check())
-     <h3 class="mb-3 text-center">Welcome {{Auth::guard('admin')->user()->name}} (Admin) to Admin Dashboard!!</h3>
-     @endif
-     @include('component.logout')
+       <h3 class="text-center mt-5">Home</h3>
     </div>
   </div>
 </div>

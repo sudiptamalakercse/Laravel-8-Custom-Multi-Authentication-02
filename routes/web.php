@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BloggerController;
+use App\Http\Controllers\LogoutController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,7 +18,7 @@ Route::middleware(['guest:admin','guest:blogger'])->group(function () {
 
     
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 })->name('home');
 
 Route::get('/register-admin', [AdminController::class, 'create'])
@@ -69,3 +70,13 @@ Route::view('/setting-blogger','blogger.blogger_setting');
 
 
  });
+
+
+
+Route::post('/logout', [LogoutController::class, 'destroy'])
+                ->name('logout');
+ 
+                
+Route::fallback(function () {
+  return redirect()->route('home');
+});

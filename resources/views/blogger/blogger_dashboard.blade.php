@@ -18,6 +18,7 @@
      @if (Auth::guard('blogger')->check())
      <h3 class="mb-3 text-center">Welcome {{Auth::guard('blogger')->user()->name}} (Blogger) to Blogger Dashboard!!</h3>
      @endif
+     @include('component.logout')
     </div>
   </div>
 </div>
