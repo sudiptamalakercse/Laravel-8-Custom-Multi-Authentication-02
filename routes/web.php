@@ -14,7 +14,7 @@ use App\Http\Controllers\LogoutController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::middleware(['guest:admin','guest:blogger'])->group(function () {
+Route::middleware(['guest:admin','guest:blogger','disable_back_btn'])->group(function () {
 
     
 Route::get('/', function () {
@@ -47,7 +47,7 @@ Route::post('/login-blogger', [BloggerController::class, 'login_blogger']);
 
 
 
-Route::middleware(['auth:admin'])->group(function () {
+Route::middleware(['auth:admin','disable_back_btn'])->group(function () {
 
 
 Route::get('/dashboard-admin', [AdminController::class, 'dashboard_admin'])
@@ -60,7 +60,7 @@ Route::view('/setting-admin','admin.admin_setting')->name('setting-admin');
 
 
 
-Route::middleware(['auth:blogger'])->group(function () {
+Route::middleware(['auth:blogger','disable_back_btn'])->group(function () {
 
 
 Route::get('/dashboard-blogger', [BloggerController::class, 'dashboard_blogger'])
