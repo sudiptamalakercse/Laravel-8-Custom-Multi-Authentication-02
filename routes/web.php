@@ -72,10 +72,13 @@ Route::view('/setting-blogger','blogger.blogger_setting')->name('setting-blogger
  });
 
 
+Route::middleware('operations_for_admin_and_blogger')->group(function () {
+
 
 Route::post('/logout', [LogoutController::class, 'destroy'])
                 ->name('logout');
- 
+
+});
                 
 Route::fallback(function () {
   return redirect()->route('home');
