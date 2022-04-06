@@ -15,6 +15,14 @@ class Authenticate extends Middleware
     protected function redirectTo($request)
     {
         if (! $request->expectsJson()) {
+         
+            //email verification related code
+            if ($request->routeIs('admin-verify')) {
+                $request->session()->flash('message', 'To Confirm Your Email Account, First Login with Your Email & Password Which are Provided by You at the Time of Your Admin Account Creation!');
+                 return route('login-admin');
+              }
+            //end email verification related code
+
             return route('home');
         }
     }

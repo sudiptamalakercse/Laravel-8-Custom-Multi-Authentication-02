@@ -64,6 +64,8 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'disable_back_btn' => \App\Http\Middleware\DisableBackBtn::class,
-        'operations_for_admin_and_blogger' => \App\Http\Middleware\OperationsForAdminAndBlogger::class
+        'operations_for_admin_and_blogger' => \App\Http\Middleware\OperationsForAdminAndBlogger::class,
+        'is_verify_admin_email' => \App\Http\Middleware\IsVerifyAdminEmail::class
+
     ];
 }

@@ -47,7 +47,7 @@ Route::post('/login-blogger', [BloggerController::class, 'login_blogger']);
 
 
 
-Route::middleware(['auth:admin','disable_back_btn'])->group(function () {
+Route::middleware(['auth:admin','disable_back_btn','is_verify_admin_email'])->group(function () {
 
 
 Route::get('/dashboard-admin', [AdminController::class, 'dashboard_admin'])
@@ -79,6 +79,24 @@ Route::post('/logout', [LogoutController::class, 'destroy'])
                 ->name('logout');
 
 });
+
+
+
+//Custom Email Verification
+Route::middleware(['auth:admin','disable_back_btn'])->group(function () {
+
+
+Route::get('admin/account/verify/{token}', [AdminController::class, 'verify_account'])->name('admin-verify');
+
+Route::get('admin/account/email/verification/notice', [AdminController::class, 'verify_account_notice'])->name('admin-verify-notice');
+
+Route::post('admin/account/email/resend', [AdminController::class, 'verify_account_email_resend'])->name('admin-verify-email-resend');
+
+
+});
+//End Custom Email verification
+
+
                 
 Route::fallback(function () {
   return redirect()->route('home');

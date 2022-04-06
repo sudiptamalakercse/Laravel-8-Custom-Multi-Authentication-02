@@ -21,6 +21,7 @@ class Admin extends Authenticatable
         'name',
         'email',
         'password',
+        'is_email_verified'
     ];
 
     /**
@@ -41,4 +42,9 @@ class Admin extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function AdminVerify()
+    {
+        return $this->hasOne(AdminVerify::class);
+    }
 }

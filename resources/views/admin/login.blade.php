@@ -21,6 +21,9 @@
         </ul>
     </div>
 @endif
+@if (Session::has('message'))
+   <div class="alert alert-info" class="mb-3">{{ Session::get('message') }}</div>
+@endif
       <form action="" method="post">
           @csrf
   <div class="mb-3">
