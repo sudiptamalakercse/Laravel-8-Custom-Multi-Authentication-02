@@ -21,6 +21,7 @@ class Blogger extends Authenticatable
         'name',
         'email',
         'password',
+        'is_email_verified'
     ];
 
     /**
@@ -41,4 +42,9 @@ class Blogger extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function BloggerVerify()
+    {
+        return $this->hasOne(BloggerVerify::class);
+    }
 }

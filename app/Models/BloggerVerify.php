@@ -5,19 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AdminVerify extends Model
+class BloggerVerify extends Model
 {
     use HasFactory;
 
-    protected $table = "admin_verifies";
-  
-    /**
+    protected $table = "blogger_verifies";
+
+     /**
      * Write code on Method
      *
      * @return response()
      */
     protected $fillable = [
-        'admin_id',
+        'blogger_id',
         'token',
     ];
   
@@ -26,8 +26,8 @@ class AdminVerify extends Model
      *
      * @return response()
      */
-    public function admin()
+    public function blogger()
     {
-        return $this->belongsTo(Admin::class);
+        return $this->belongsTo(Blogger::class);
     }
 }

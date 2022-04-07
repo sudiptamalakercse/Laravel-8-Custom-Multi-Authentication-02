@@ -65,7 +65,8 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'disable_back_btn' => \App\Http\Middleware\DisableBackBtn::class,
         'operations_for_admin_and_blogger' => \App\Http\Middleware\OperationsForAdminAndBlogger::class,
-        'is_verify_admin_email' => \App\Http\Middleware\IsVerifyAdminEmail::class
+        'is_verify_admin_email' => \App\Http\Middleware\IsVerifyAdminEmail::class,
+        'is_verify_blogger_email' => \App\Http\Middleware\IsVerifyBloggerEmail::class
 
     ];
 }

@@ -60,7 +60,7 @@ Route::view('/setting-admin','admin.admin_setting')->name('setting-admin');
 
 
 
-Route::middleware(['auth:blogger','disable_back_btn'])->group(function () {
+Route::middleware(['auth:blogger','disable_back_btn','is_verify_blogger_email'])->group(function () {
 
 
 Route::get('/dashboard-blogger', [BloggerController::class, 'dashboard_blogger'])
@@ -91,6 +91,20 @@ Route::get('admin/account/verify/{token}', [AdminController::class, 'verify_acco
 Route::get('admin/account/email/verification/notice', [AdminController::class, 'verify_account_notice'])->name('admin-verify-notice');
 
 Route::post('admin/account/email/resend', [AdminController::class, 'verify_account_email_resend'])->name('admin-verify-email-resend');
+
+
+});
+
+
+
+Route::middleware(['auth:blogger','disable_back_btn'])->group(function () {
+
+
+Route::get('blogger/account/verify/{token}', [BloggerController::class, 'verify_account'])->name('blogger-verify');
+
+Route::get('blogger/account/email/verification/notice', [BloggerController::class, 'verify_account_notice'])->name('blogger-verify-notice');
+
+Route::post('blogger/account/email/resend', [BloggerController::class, 'verify_account_email_resend'])->name('blogger-verify-email-resend');
 
 
 });

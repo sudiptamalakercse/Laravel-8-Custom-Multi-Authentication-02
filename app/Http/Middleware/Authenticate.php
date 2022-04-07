@@ -21,6 +21,10 @@ class Authenticate extends Middleware
                 $request->session()->flash('message', 'To Confirm Your Email Account, First Login with Your Email & Password Which are Provided by You at the Time of Your Admin Account Creation!');
                  return route('login-admin');
               }
+            elseif ($request->routeIs('blogger-verify')) {
+                $request->session()->flash('message', 'To Confirm Your Email Account, First Login with Your Email & Password Which are Provided by You at the Time of Your Admin Account Creation!');
+                return route('login-blogger');
+            }
             //end email verification related code
 
             return route('home');

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAdminsVerifyTable extends Migration
+class CreateAdminVerifiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateAdminsVerifyTable extends Migration
      */
     public function up()
     {
-        Schema::create('admins_verify', function (Blueprint $table) {
+        Schema::create('admin_verifies', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('admin_id');
             $table->foreign('admin_id')->references('id')->on('admins');
@@ -29,6 +29,6 @@ class CreateAdminsVerifyTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('admins_verify');
+        Schema::dropIfExists('admin_verifies');
     }
 }
