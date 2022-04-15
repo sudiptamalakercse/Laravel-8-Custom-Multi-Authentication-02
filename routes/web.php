@@ -111,6 +111,28 @@ Route::post('blogger/account/email/resend', [BloggerController::class, 'verify_a
 //End Custom Email verification
 
 
+
+//Custom Password Reset
+Route::middleware(['guest:admin','guest:blogger','disable_back_btn'])->group(function () {
+
+
+Route::get('admin/forgot_password',[AdminController::class, 'forgot_password'])
+->name('admin-password-request');
+
+Route::post('admin/forgot_password',[AdminController::class, 'forgot_password_handle'])
+->name('admin-password-email');
+
+Route::get('admin/reset_password/{token}/{email}',[AdminController::class, 'reset_password'])
+->name('admin-password-reset');
+
+Route::post('admin/reset_password_handle', [AdminController::class, 'reset_password_handle'])
+->name('admin-password-update');
+
+
+});
+//End Custom Password Reset
+
+
                 
 Route::fallback(function () {
   return redirect()->route('home');
