@@ -349,8 +349,11 @@ $request->validate([
 
             $url=route('dashboard-admin');
 
-            return redirect()->intended($url)
-            ->with('message', 'Your Password Is Successfully Changed!');
+            $request->session()->put('message_password_reset', 'Your Password Is Successfully Changed!');
+            
+            return redirect()->intended($url);
+            
+            
         }
     }
     else{
