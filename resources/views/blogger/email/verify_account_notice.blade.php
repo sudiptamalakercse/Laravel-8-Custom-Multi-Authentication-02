@@ -8,9 +8,12 @@
 <body>
     <div class="container">
          @include('component.nav')
-    @if (Session::has('message'))
-   <div class="alert alert-info" class="mb-3">{{ Session::get('message') }}</div>
-    @endif
+    @if (Session::has('message_password_reset'))
+   <div class="alert alert-info" class="mb-3">{{ Session::get('message_password_reset') }}</div>
+    @php
+    Session::forget('message_password_reset');
+    @endphp
+   @endif
     <div class="row">        
     <div class="col-md-4 offset-md-4">
     <h3 class="text-center">{{auth('blogger')->user()->name}} (Blogger)</h3>

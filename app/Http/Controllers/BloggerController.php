@@ -12,6 +12,8 @@ use App\Models\BloggerVerify;
 use Str;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\BloggerEmailVerification;
+use App\Models\PasswordReset;
+use App\Mail\BloggerPasswordReset;
 
 
 class BloggerController extends Controller
@@ -215,6 +217,149 @@ class BloggerController extends Controller
         return redirect()->back()
             ->with('message', 'Verification Email Sent & Please Verify Your Email Account!');
     }
+
+    public function forgot_password () {
+    return view('blogger.forgot_password');
+   }
+
+   public function forgot_password_handle(Request $request) {
+    $request->validate(['email' => 'required|email']);
+    $email=$request->email;
+    $blogger=Blogger::where('email',$email)->first();
+    $mess='';
+    if($blogger!=null){
+    
+    $password_reset=PasswordReset::latest()->first();
+    
+    if($password_reset==null){
+     $password_reset_last_id=1; 
+    }
+    else{
+     $password_reset_last_id=$password_reset->id+1;
+    }
+   
+    $token=$password_reset_last_id.hash('sha256',Str::random(120));
+   
+    PasswordReset::create([
+              'email' => $email, 
+              'token' => Hash::make($token),
+              'user_type' =>'Blogger'
+            ]);
+       
+        //datas which will go with email
+        $blogger_password_reset_link=route('blogger-password-reset',['token'=>$token,'email'=>$email]);
+    
+        $password_resetter_name=$blogger->name;
+        $user_type='Blogger';
+
+        $email_datas= [
+            'blogger_password_reset_link'=>$blogger_password_reset_link,
+            'password_resetter_name'=>$password_resetter_name,
+            'user_type'=>$user_type,
+        ];
+        //end datas which will go with email
+
+        //send email
+        Mail::to($email)->send(new BloggerPasswordReset($email_datas));
+        //end send email
+
+         //end email verify related code
+
+    $mess='We Sent You A Password Reset Link to Your Email!';
+    }
+    else{
+     $mess='We Do Not Find This Email!';
+    }
+
+    return redirect()->back()->with('message', $mess); 
+}
+
+public function reset_password($token,$email) {
+    return view('blogger.reset_password', ['token' => $token,'email' =>$email]);
+}
+
+public function reset_password_handle(Request $request) {
+$request->validate([
+        'token' => 'required',
+        'email' => 'required|email',
+        'password' => 'required|min:8|confirmed',
+    ]);
+    
+    $email=$request->email;
+    $password=$request->password;
+    $token=$request->token;
+
+    $mess='';
+    $token_matched=false;
+    $PasswordReset_id=null;
+    $all_ok=false;
+
+    $PasswordResets=PasswordReset::get(); 
+
+    foreach ($PasswordResets as $PasswordReset) {
+             if(Hash::check($token,$PasswordReset->token)){
+                $token_matched=true;
+                $PasswordReset_id=$PasswordReset->id;
+                break;
+            }
+        }
+
+    if($token_matched==true){
+      $PasswordReset=PasswordReset::find($PasswordReset_id);        
+      if($PasswordReset->email==$email){
+         if($PasswordReset->user_type=='Blogger'){
+          
+          $all_ok=true;
+
+         }else{
+           $mess="User Type Is Not Matched!";
+         }
+
+      }
+      else{
+         $mess="Email Is Not Matched!"; 
+      }
+    }
+    else{
+      $mess="Token Is Not Matched or Old!";
+    }
+
+    if($all_ok==true){
+
+      //Update Password
+      $blogger=Blogger::where('email',$email)->first();
+      $blogger->password = Hash::make($password);
+      $blogger->save();
+
+      //delete reset_password_table record
+      PasswordReset::where('email',$email)
+                     ->where('user_type','Blogger')
+                     ->delete();
+
+       //login
+        $credentials=[
+        'email' =>$email ,
+        'password' =>$password
+        ];
+
+        if (Auth::guard('blogger')->attempt($credentials,false)) {
+
+            $request->session()->regenerate();
+
+            $url=route('dashboard-blogger');
+
+            $request->session()->put('message_password_reset', 'Your Password Is Successfully Changed!');
+            
+            return redirect()->intended($url);
+            
+            
+        }
+    }
+    else{
+        return redirect()->back()->with('message', $mess);
+    }
+}
+
 
 
 }

@@ -16,6 +16,12 @@
       @if (Session::has('message'))
    <div class="alert alert-info" class="mb-3">{{ Session::get('message') }}</div>
      @endif
+   @if (Session::has('message_password_reset'))
+   <div class="alert alert-info" class="mb-3">{{ Session::get('message_password_reset') }}</div>
+    @php
+    Session::forget('message_password_reset');
+    @endphp
+   @endif
      @if (Auth::guard('blogger')->check())
      <h3 class="mb-3 text-center">Welcome {{Auth::guard('blogger')->user()->name}} (Blogger) to Blogger Dashboard!!</h3>
      @endif
