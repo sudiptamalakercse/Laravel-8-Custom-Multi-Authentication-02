@@ -80,8 +80,8 @@ class AdminController extends Controller
             return redirect()->intended($url)
             ->with('message', 'Your Admin Account is Registered Successfully & Please Verify Your Email Account!');
         }
-        //end login 
-    }
+         
+    }//end login
 
     public function login_admin_form()
     {

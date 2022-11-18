@@ -80,10 +80,10 @@ class BloggerController extends Controller
             return redirect()->intended($url)
             ->with('message', 'Your Blogger Account is Registered Successfully & Please Verify Your Email Account!');
         }
-        //end login 
+         
 
         
-    }
+    }//end login
 
     public function login_blogger_form()
     {
